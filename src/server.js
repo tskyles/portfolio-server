@@ -17,8 +17,6 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 server.post('/sendmail', (req, res) => {
-	console.log('here');
-	console.log(req.body);
 	const { name, email, subject, message } = req.body;
 	const transporter = mailer.createTransport({
 		service: 'SendinBlue',
@@ -31,7 +29,7 @@ server.post('/sendmail', (req, res) => {
 	const mailOptions = {
 		from: email,
 		to: process.env.RECIEVER_EMAIL,
-		subject: `From ${name}: ${subject}`,
+		subject: `${name}: ${subject}`,
 		text: message,
 	};
 
