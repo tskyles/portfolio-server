@@ -8,7 +8,11 @@ const mailer = require('nodemailer');
 
 const server = express();
 
-server.use(cors());
+server.use(
+	cors({
+		origin: ['https://travisskyles.com', 'http://localhost:5500'],
+	})
+);
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
@@ -43,10 +47,10 @@ server.post('/sendmail', (req, res) => {
 	transporter.sendMail(mailOptions, (error, info) => {
 		if (error) {
 			console.log(error);
-			res.status(500).send('Error sending message');
+			res.status(500).send('Sorry, there was a issue sending your message...');
 		} else {
 			console.log(info);
-			res.status(200).send('Message sent successfully');
+			res.status(200).send('Message sent successfully!');
 		}
 	});
 });
